@@ -2,8 +2,6 @@
 
 An ESP32 port of [Responder](https://github.com/lgandx/Responder) by Laurent Gaffié. Poisons LLMNR, NBT-NS, and mDNS on a local network, serves fake SMB and HTTP auth endpoints, captures NTLMv2 hashes from Windows clients, and exposes them over serial and a local `/hashes` endpoint. Runs on a microcontroller with no laptop required.
 
-WiFi Marauder, Bruce firmware, and Evil-M5Core2 exist but none of them do LAN-layer protocol poisoning or NTLM hash capture. This fills that gap.
-
 ## How it works
 
 Windows resolves hostnames in order: DNS, then LLMNR (UDP multicast 224.0.0.252:5355), then NBT-NS (UDP broadcast 137). When DNS fails, Windows broadcasts the name on the fallback protocols. rESPonder32 answers every broadcast with its own IP.
