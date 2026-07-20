@@ -29,24 +29,6 @@ board = esp32dev
 framework = arduino
 ```
 
-## Development without hardware
-
-The repo includes `esp32emu/`, a lightweight emulator that compiles sketches as native Linux binaries using real POSIX sockets. Multicast groups are joined for real, so actual LAN machines hit the running sketch.
-
-```bash
-# run the full integration sketch
-./esp32emu/esp32emu run src/responder32.cpp
-
-# run a single module
-./esp32emu/esp32emu run src/mdns_poisoner.cpp
-
-# integration tests (separate terminal)
-python3 tests/test_llmnr.py
-python3 tests/test_mdns.py
-```
-
-Port 137 (NBT-NS) and 445 (SMB) need root on Linux. Port 80 (HTTP) does too. The LLMNR (5355), mDNS (5353), and web UI (8080) tasks run without it. Tasks that cannot bind their port log a warning and exit cleanly.
-
 ## Project layout
 
 ```
@@ -67,8 +49,6 @@ tests/
   test_smb.py
   test_http.py
   test_hash_formatter.py
-
-esp32emu/                  POSIX emulator for the ESP32 Arduino core
 ```
 
 Each file under `src/` except `hash_formatter.h` and `output_layer.cpp` is a complete standalone sketch. Any of them can be flashed individually for isolated testing.
